@@ -1,3 +1,7 @@
+## 0.1.2
+
+- README: more English examples, English usage snippet.
+
 ## 0.1.1
 
 - Shorter package description (pub.dev recommends 60-180 characters).

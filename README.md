@@ -7,7 +7,11 @@ Type a plan the way you would say it, get a structured task back:
 ```text
 "yarın 15'te diş hekimi 45 dk"  →  diş hekimi · Sat 24 Oct 15:00–15:45
 "cumaya kadar rapor 3 saat !!"  →  rapor · deadline Fri 23:59 · estimate 3h · priority 2
+"yrın 9da kahvaltı"             →  kahvaltı · Sat 24 Oct 09:00 · "yrın" corrected to "yarın"
+
+"tomorrow 3pm call with Ali"    →  call with Ali · Sat 24 Oct 15:00
 "every friday 7pm gym"          →  gym · FREQ=WEEKLY;BYDAY=FR · 19:00
+"finish thesis by monday"       →  finish thesis · deadline Mon 23:59
 ```
 
 No network, no model, no dependencies. It is fast enough to run on every keystroke, and it tells you
@@ -35,17 +39,22 @@ import 'package:nl_task_parser/nl_task_parser.dart';
 
 void main() {
   const parser = RuleExtractor();
-  final result = parser.parse(
-    "yarın 15'te diş hekimi 45 dk",
-    now: DateTime(2026, 10, 23, 10), // optional, defaults to DateTime.now()
-  );
+  final now = DateTime(2026, 10, 23, 10); // optional, defaults to DateTime.now()
 
-  final task = result.tasks.single;
-  print(task.title);      // diş hekimi
-  print(task.start);      // 2026-10-24 15:00:00.000
-  print(task.end);        // 2026-10-24 15:45:00.000
-  print(task.spans);      // [ParsedSpan(0, 5, date), ParsedSpan(6, 11, time), ParsedSpan(23, 28, duration)]
-  print(task.confidence); // 0.95
+  // Turkish
+  final tr = parser.parse("yarın 15'te diş hekimi 45 dk", now: now).tasks.single;
+  print(tr.title);      // diş hekimi
+  print(tr.start);      // 2026-10-24 15:00:00.000
+  print(tr.end);        // 2026-10-24 15:45:00.000
+  print(tr.spans);      // [ParsedSpan(0, 5, date), ParsedSpan(6, 11, time), ParsedSpan(23, 28, duration)]
+  print(tr.confidence); // 0.95
+
+  // English
+  final en = parser.parse('every friday 7pm gym', now: now).tasks.single;
+  print(en.title);      // gym
+  print(en.start);      // 2026-10-23 19:00:00.000
+  print(en.recurrence); // FREQ=WEEKLY;BYDAY=FR
+  print(en.spans);      // [ParsedSpan(0, 12, recurrence), ParsedSpan(13, 16, time)]
 }
 ```
 
