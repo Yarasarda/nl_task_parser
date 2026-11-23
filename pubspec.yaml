@@ -1,0 +1,21 @@
+name: nl_task_parser
+description: >-
+  Rule-based natural-language task parser for Turkish and English. Extracts
+  title, date, time, range, duration, deadline, recurrence (RRULE), priority
+  and subtasks from a plain sentence, with typo tolerance and confidence.
+version: 0.1.0
+repository: https://github.com/Yarasarda/nl_task_parser
+issue_tracker: https://github.com/Yarasarda/nl_task_parser/issues
+topics:
+  - nlp
+  - parser
+  - date
+  - turkish
+  - calendar
+
+environment:
+  sdk: ^3.7.0
+
+dev_dependencies:
+  lints: '>=5.1.0 <7.0.0'
+  test: ^1.25.0
