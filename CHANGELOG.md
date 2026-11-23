@@ -1,3 +1,7 @@
+## 0.1.1
+
+- Shorter package description (pub.dev recommends 60-180 characters).
+
 ## 0.1.0
 
 - Initial release, extracted from the Plan app's parser.
